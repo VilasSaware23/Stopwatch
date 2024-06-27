@@ -1,12 +1,16 @@
 let [milliseconds, seconds, minutes, hours] = [0, 0, 0, 0];
 let timerRef = document.querySelector('.timerDisplay');
-let int;
+let int = null;
+let isRunning = false;
 
-// Implementing the start button function
+// Start button function
 document.getElementById('startTimer').addEventListener('click', () => {
-    int = setInterval(displayTimer, 10); // Update every 10 milliseconds
+    if (!isRunning) {
+        isRunning = true;
+        int = setInterval(displayTimer, 10); // Update every 10 milliseconds
+    }
 });
-//writing start button function
+
 function displayTimer() {
     milliseconds += 10;
     if (milliseconds == 1000) {
@@ -29,17 +33,16 @@ function displayTimer() {
     timerRef.innerHTML = `${h} : ${m} : ${s}`;
 }
 
-// Implementing the start button function
+// Stop button function
 document.getElementById('stopTimer').addEventListener('click', () => {
     clearInterval(int);
+    isRunning = false;
 });
 
-// Implementing the start button function
+// Reset button function
 document.getElementById('resetTimer').addEventListener('click', () => {
     clearInterval(int);
+    isRunning = false;
     [milliseconds, seconds, minutes, hours] = [0, 0, 0, 0];
     timerRef.innerHTML = '00 : 00 : 00';
 });
-
-
-
